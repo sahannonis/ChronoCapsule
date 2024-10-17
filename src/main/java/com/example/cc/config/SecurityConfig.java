@@ -28,11 +28,12 @@ public class SecurityConfig {
         this.jwtUtils = jwtUtils;
     }
 
-    @Bean
+    @SuppressWarnings("removal")
+	@Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
         http.csrf().disable()
             .authorizeHttpRequests()
-            .requestMatchers("/api/users/register", "/api/users/login").permitAll()
+            .requestMatchers("/api/users/register", "/api/users/login", "/api/email/**").permitAll()
             .anyRequest().authenticated()
             .and()
             .addFilter(new JwtAuthenticationFilter(authenticationManager, jwtUtils))
