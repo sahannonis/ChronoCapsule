@@ -7,6 +7,7 @@ import com.example.cc.security.JwtUtils;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -33,6 +34,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
         http.csrf().disable()
             .authorizeHttpRequests()
+	    .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
             .requestMatchers("/api/users/register", "/api/users/login", "/api/email/**").permitAll()
             .anyRequest().authenticated()
             .and()
