@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:8081") 
 @RestController
 @RequestMapping("/api/capsules")
 public class ChronoCapsuleController {
