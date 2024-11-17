@@ -32,9 +32,14 @@ public class SecurityConfig {
     @SuppressWarnings("removal")
 	@Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
-        http.csrf().disable()
+        http.cors()
+        	.and()
+        	.csrf().disable()
             .authorizeHttpRequests()
-	    .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+            .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+            .requestMatchers(HttpMethod.POST, "/**").permitAll()
+            .requestMatchers(HttpMethod.DELETE, "/**").permitAll()
+            .requestMatchers(HttpMethod.PUT, "/**").permitAll()
             .requestMatchers("/api/users/register", "/api/users/login", "/api/email/**").permitAll()
             .anyRequest().authenticated()
             .and()
