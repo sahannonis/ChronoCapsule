@@ -19,6 +19,7 @@ import com.example.cc.security.JwtResponse;
 import com.example.cc.security.JwtUtils;
 import com.example.cc.service.UserService;
 
+@CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
