@@ -57,7 +57,24 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
         }
     }
+     
+    @GetMapping("/email")
+    public ResponseEntity<String> getEmailOfLoggedInUser() {
+        try {
+            // Get the username of the logged-in user from Security Context
+            String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
+            // Fetch the user by username
+            User user = userService.findByUsername(username)
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+
+            // Return the user's email
+            return ResponseEntity.ok(user.getEmail());
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Failed to retrieve email: " + e.getMessage());
+        }
+    }
+    
     @PostMapping("/logout")
     public ResponseEntity<String> logout() {
         SecurityContextHolder.clearContext();
